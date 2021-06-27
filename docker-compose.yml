@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+
+  postgres_db:
+    build: .
+    container_name: postgres_db
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+    environment:
+      - POSTGRES_USER=${POSTGRES_ROOT_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_ROOT_PASS}
+
+      # Makes sure DB and User with password exists, and user has permissions on the db
+      - POSTGRES_CREATE_1= newdb1 user1 pass1
+      - POSTGRES_CREATE_2= newdb2 user2 pass2
+    restart: unless-stopped
